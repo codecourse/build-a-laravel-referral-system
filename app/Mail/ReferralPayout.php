@@ -2,12 +2,16 @@
 
 namespace App\Mail;
 
+use App\Referrals\ReferralPayoutExport;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Mail\Attachment;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReferralPayout extends Mailable
 {
@@ -16,7 +20,7 @@ class ReferralPayout extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(protected Builder $payouts)
     {
         //
     }
@@ -48,6 +52,11 @@ class ReferralPayout extends Mailable
      */
     public function attachments(): array
     {
-        return [];
+        return [
+            Attachment::fromData(function () {
+                return Excel::raw(new ReferralPayoutExport($this->payouts), 'Csv');
+            }, now()->format('F') . ' Export.csv')
+                ->withMime('text/csv')
+        ];
     }
 }

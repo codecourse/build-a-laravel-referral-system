@@ -37,17 +37,13 @@ class GenerateReferralPayout implements ShouldQueue
             return;
         }
 
-        // $payouts->update(['paid_at' => now()]);
+        $payouts->update(['paid_at' => now()]);
 
-        // $records = $payouts
-        //     ->selectRaw('SUM(amount) as amount, users.paypal_email')
-        //     ->leftJoin('users', 'users.id', '=', 'referral_payments.user_id')
-        //     ->groupBy('user_id')
-        //     ->get()
-        //     ->toArray();
+        $records = $payouts
+            ->selectRaw('SUM(amount) as amount, users.paypal_email')
+            ->leftJoin('users', 'users.id', '=', 'referral_payments.user_id')
+            ->groupBy('user_id');
 
-        // dd($records);
-
-        Mail::to('alex@codecourse.com')->send(new ReferralPayout());
+        Mail::to('alex@codecourse.com')->send(new ReferralPayout($records));
     }
 }
