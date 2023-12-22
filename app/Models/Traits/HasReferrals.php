@@ -17,6 +17,11 @@ trait HasReferrals
         return $this->referralCode()->exists();
     }
 
+    public function referralLink()
+    {
+        return route('referral.index', $this->referralCode);
+    }
+
     public function referralCode()
     {
         return $this->hasOne(ReferralCode::class);
