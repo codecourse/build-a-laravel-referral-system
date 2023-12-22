@@ -12,6 +12,10 @@
                     @if ($referralCode)
                         <p>You'll receive a discount due to a referral</p>
                     @endif
+
+                    @foreach ($plans as $plan)
+                        <a href="#">{{ $plan->title }} ({{ $plan->price }})</a>
+                    @endforeach
                 </div>
             </div>
         </div>
