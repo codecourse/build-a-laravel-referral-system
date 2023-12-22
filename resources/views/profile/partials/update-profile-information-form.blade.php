@@ -47,6 +47,12 @@
             @endif
         </div>
 
+        <div>
+            <x-input-label for="paypal_email" :value="__('PayPal email')" />
+            <x-text-input id="paypal_email" name="paypal_email" type="text" class="mt-1 block w-full" :value="old('paypal_email', $user->paypal_email)" />
+            <x-input-error class="mt-2" :messages="$errors->get('paypal_email')" />
+        </div>
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 
