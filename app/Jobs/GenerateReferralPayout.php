@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Mail\ReferralPayout;
 use App\Models\ReferralPayment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -9,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Mail;
 
 class GenerateReferralPayout implements ShouldQueue
 {
@@ -37,15 +39,15 @@ class GenerateReferralPayout implements ShouldQueue
 
         // $payouts->update(['paid_at' => now()]);
 
-        $records = $payouts
-            ->selectRaw('SUM(amount) as amount, users.paypal_email')
-            ->leftJoin('users', 'users.id', '=', 'referral_payments.user_id')
-            ->groupBy('user_id')
-            ->get()
-            ->toArray();
+        // $records = $payouts
+        //     ->selectRaw('SUM(amount) as amount, users.paypal_email')
+        //     ->leftJoin('users', 'users.id', '=', 'referral_payments.user_id')
+        //     ->groupBy('user_id')
+        //     ->get()
+        //     ->toArray();
 
-        dd($records);
+        // dd($records);
 
-        // email
+        Mail::to('alex@codecourse.com')->send(new ReferralPayout());
     }
 }
