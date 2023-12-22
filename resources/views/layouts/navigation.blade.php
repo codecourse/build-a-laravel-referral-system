@@ -38,6 +38,12 @@
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
+                        @if (auth()->user()->referralsEnabled())
+                            <x-dropdown-link :href="route('referrals.index')">
+                                {{ __('Referrals') }}
+                            </x-dropdown-link>
+                        @endif
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
