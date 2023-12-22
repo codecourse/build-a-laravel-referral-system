@@ -9,6 +9,10 @@ class ReferralIndexController extends Controller
 {
     public function __invoke(ReferralCode $referralCode)
     {
-        dd($referralCode);
+        $referralCode->increment('visits');
+
+        return view('referral.index', [
+            'referralCode' => $referralCode
+        ]);
     }
 }
