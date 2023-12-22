@@ -12,6 +12,18 @@
                     @include('referrals.partials.referral-code')
                 </div>
             </div>
+
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                <div class="max-w-xl">
+                    @include('referrals.partials.referral-stats')
+                </div>
+            </div>
+
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                <div class="max-w-xl">
+                    @include('referrals.partials.referral-subscriptions')
+                </div>
+            </div>
         </div>
     </div>
 </x-app-layout>
