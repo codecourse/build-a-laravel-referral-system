@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReferralIndexController;
@@ -29,6 +30,7 @@ Route::get('/referral/{referralCode:code}', ReferralIndexController::class)->nam
 Route::post('/referral/{referralCode:code}', ReferralStoreController::class)->name('referral.store');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/checkout/{plan:slug}', CheckoutController::class)->name('checkout.index');
     Route::get('/referrals', ReferralsDashboardController::class)->middleware(RedirectIfNoReferralCode::class)->name('referrals.index');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
